@@ -1,5 +1,5 @@
 body {
-    /*Kommentarfunktion*/
+    /* ein Kommentar */
     max-width: 1280px;
     margin: auto;
     font-family: 'Open Sans', sans-serif;
@@ -27,8 +27,7 @@ header nav img {
     border-radius: 50%;
 }
 
-a:link,
-a:visited {
+a:link, a:visited {
     color: black;
 }
 
@@ -44,7 +43,7 @@ main {
 
 main p {
     text-align: justify;
-    font-family: 'Bellota', cursive;
+    font-family: 'Liu Jian Mao Cao', cursive;
 }
 
 main figure {
@@ -57,10 +56,14 @@ main figure img {
     border: 1px solid black;
 }
 
+main .right{
+    float: right;
+}
+
 #map {
     width: 100%;
     height: 360px;
-    border: 1px solid grey;
+    border: 1px solid gray;
 }
 
 main ul {
@@ -72,19 +75,18 @@ footer {
     padding: 1em 0 3em 0;
 }
 
-footer .next {
-    float: right;
-}
-
 footer .back {
     float: left;
+}
+
+footer .next {
+    float: right;
 }
 
 @media screen and (max-width: 900px) {
     main {
         max-width: 90%;
     }
-
     header img.banner {
         width: 100vw;
     }
