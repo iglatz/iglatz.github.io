@@ -2,14 +2,32 @@
 <html lang="en">
 
 <head>
+    <!--Set to UTF-8-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Title-->
     <title>Neuseelandreise - Royal Albatross Center</title>
+
+    <!--integrate fonts from cludflare-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bellota|Open+Sans&display=swap" rel="stylesheet">
+    
+    <!--integrate javscript & CSS-->
+    <script defer src="main.js"></script>
     <link rel="stylesheet" href="main.css">
-    <script src="main.js"></script>
+    
+    <!--integrate leave let-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+
+    <!--Make sure you put this AFTER Leaflet's CSS-->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+
 </head>
 
 <body>
@@ -65,9 +83,9 @@
 
         <h3>Übersichtskarte</h3>
         <div id="map" data-lat="-44.828004" data-lng="169.634525" data-title="Albatros Center"></div>
-
+        
         <h3>Links</h3>
-        <!-- ungeordnete Liste mit mind. 4 Links zum Thema -->
+        <!--unorderd lists min. 4 Links to topic -->
         <ul>
             <li><a href="https://www.getyourguide.de/royal-albatross-centre-l111997/?utm_force=0">Preise</a></li>
             <li><a href="https://franks-travelbox.com/ozeanien/neuseeland/albatros-centre-auf-der-otago-halbinsel-neuseeland/">Frank's Blog</a></li>
