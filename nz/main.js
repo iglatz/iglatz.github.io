@@ -1,9 +1,9 @@
 // alert ("Hallo Welt!");
 
 //connection to map -> index.html
-let map = document.querySelector("#map") 
+let map = document.querySelector("#map")
 
-let title=map.dataset.title;
+let title = map.dataset.title;
 
 var mymap = L.map("map").setView([-44.828004, 169.634525], 13);
 
@@ -21,4 +21,3 @@ var circle = L.circle([-44.828004, 169.634525], {
 }).addTo(mymap);
 
 circle.bindPopup("<b>Royal Albatros Center</b><br>one of the biggest Albatros colonies").openPopup();
-
