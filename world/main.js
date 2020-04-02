@@ -11,7 +11,7 @@ let map = L.map("map", {
 L.control.layer({
     "OpenTopoMap" : startLayer,
     "OpenStreetMap.Mapnik" : L.tileLayer.provider("OpenStreetMap.Mapnik"),
-    //"OpenStreetMap.BZH" : L.tileLayer.provider("OpenStreetMap.BZH"),
-    //"Thunderforest.Transport" : L.tileLayer.provider("Thunderforest.Transport"),
-    //"NASAGIBS.ViirsEarthAtNight2012" : L.tileLayer.provider("NASAGIBS.ViirsEarthAtNight2012"),
+    "OpenStreetMap.BZH" : L.tileLayer.provider("OpenStreetMap.BZH"),
+    "Thunderforest.Transport" : L.tileLayer.provider("Thunderforest.Transport"),
+    "NASAGIBS.ViirsEarthAtNight2012" : L.tileLayer.provider("NASAGIBS.ViirsEarthAtNight2012"),
 }).addTo(map);
