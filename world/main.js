@@ -20,12 +20,14 @@ L.control.layers({
     "Thematische Darstellung": circleGroup
 }).addTo(map);
 
-let drawCircles = function (data) {
+let drawCircles = function () {
     let data = CONFIRMED;
     let header = CONFIRMED[0];
     let index = header.length - 1;
+    let topic = "bestätigte Fälle";
 
-    document.querySelector("#datum".innerHTML = 'am ${header[index]}')
+    // Datum & Thema anzeigen
+    document.querySelector("#datum").innerHTML = am ('{$header[index]} - {$topic}');
     // console.log(CONFIRMED);
     for (let i = 1; i < data.length; i++) {
         let row = data[i];
@@ -47,6 +49,11 @@ let drawCircles = function (data) {
         }).addTo(circleGroup);
         circle.bindPopup(`${reg}: ${val}`);
     }
+};
+
+document.querySelector("#pulldown").onchange = function (){
+    console.log("geändert");
+
 };
 
 //drawCircles(RECOVERED);
