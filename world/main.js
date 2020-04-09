@@ -30,15 +30,15 @@ let drawCircles = function () {
     let label = options[options.selectedIndex].label;
     let color;
 
-if (value == "confirmed") {
+    if (value == "confirmed") {
         data = CONFIRMED;
         color = 'blue'
-} else if (value == "deaths") {
+    } else if (value == "deaths") {
         data = DEATHS;
         color = 'purple'
-}else {
-            data = RECOVERED;
-            color = 'green'
+    } else {
+        data = RECOVERED;
+        color = 'green'
     }
 
     // Datum & Thema anzeigen
@@ -46,7 +46,7 @@ if (value == "confirmed") {
 
     circleGroup.clearLayers();
 
-    data.sort(function compareNumbers(row1,row2){
+    data.sort(function compareNumbers(row1, row2) {
         return row2[index] - row1[index];
     });
 
@@ -59,9 +59,9 @@ if (value == "confirmed") {
         let lng = row[3];
         let val = row[index];
 
-         if (val == "0"){
+        if (val == "0") {
             continue;
-    }
+        }
 
         let mrk = L.marker([lat, lng]).addTo(map);
         mrk.bindPopup(`${row[0]} ${row[1]}: ${val}`);
@@ -81,16 +81,33 @@ if (value == "confirmed") {
 
 document.querySelector("#pulldown").onchange = function () {
     drawCircles();
-
 };
+    let playButton = document.querySelector("#play");
+
+    playButton.onclick = function () {
+        console.log("clicked");
+
+        let value = slider.min;
+
+        let runningAnimation = window.setInterval(function () {
+            //console.log(value, "nach 250ms");
+            slider.value = value;
+            drawCircles();
+            value++;
+
+            if (value > slider.max) {
+                window.clearInterval(runningAnimation);
+            }
+        }, 250)
+    };
 
 let slider = document.querySelector("#slider");
 slider.min = 4;
 slider.max = CONFIRMED[0].length - 1;
-slider.step =  1
-slider.value = slider.max; 
+slider.step = 1
+slider.value = slider.max;
 
-slider.onchange= function(){
+slider.onchange = function () {
     drawCircles();
 }
 drawCircles();
