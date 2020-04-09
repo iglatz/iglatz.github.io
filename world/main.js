@@ -23,7 +23,7 @@ L.control.layers({
 let drawCircles = function () {
     let data = CONFIRMED;
     let header = CONFIRMED[0];
-    let index = header.length - 1;
+    let index = document.querySelector("#slider").value;
     let topic = "bestätigte Fälle";
     let options = document.querySelector("#pulldown").options;
     let value = options[options.selectedIndex].value;
@@ -75,4 +75,9 @@ document.querySelector("#pulldown").onchange = function () {
 
 };
 
+let slider = document.querySelector("#slider");
+slider.min = 4;
+slider.max = CONFIRMED[0].length - 1;
+slider.step =  1
+slider.value = slider.max; 
 drawCircles();
