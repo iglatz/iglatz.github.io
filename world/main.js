@@ -82,14 +82,26 @@ let drawCircles = function () {
 document.querySelector("#pulldown").onchange = function () {
     drawCircles();
 };
-    let playButton = document.querySelector("#play");
+let playButton = document.querySelector("#play");
+let runningAnimation = null;
 
-    playButton.onclick = function () {
-        console.log("clicked");
+playButton.onclick = function () {
+    let value;
+    if (slider.value == slider.max) {
+        value = slider.min;
+    }else{
+        value = slider.value;
+    }
 
-        let value = slider.min;
+    playButton.value = "||";
 
-        let runningAnimation = window.setInterval(function () {
+    if (runningAnimation) {
+        window.clearInterval(runningAnimation);
+        playButton.value = ">";
+        runningAnimation = null;
+    } else {
+
+        runningAnimation = window.setInterval(function () {
             //console.log(value, "nach 250ms");
             slider.value = value;
             drawCircles();
@@ -97,9 +109,12 @@ document.querySelector("#pulldown").onchange = function () {
 
             if (value > slider.max) {
                 window.clearInterval(runningAnimation);
+                playButton.value = ">";
+                runningAnimation = null;
             }
         }, 250)
     };
+}
 
 let slider = document.querySelector("#slider");
 slider.min = 4;
