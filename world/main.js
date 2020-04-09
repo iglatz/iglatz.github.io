@@ -22,6 +22,10 @@ L.control.layers({
 
 let drawCircles = function (data) {
     let data = CONFIRMED;
+    let header = CONFIRMED[0];
+    let index = header.length - 1;
+
+    document.querySelector("#datum".innerHTML = 'am ${header[index]}')
     // console.log(CONFIRMED);
     for (let i = 1; i < data.length; i++) {
         let row = data[i];
@@ -29,7 +33,7 @@ let drawCircles = function (data) {
         let reg = `${row[0]} ${row[1]}`;
         let lat = row[2];
         let lng = row[3];
-        let val = row[row.length - 1];
+        let val = row[index];
         let mrk = L.marker([lat, lng]).addTo(map);
         mrk.bindPopup(`${row[0]} ${row[1]}: ${val}`);
 
