@@ -93,11 +93,11 @@ playButton.onclick = function () {
         value = slider.value;
     }
 
-    playButton.value = "||";
+    playButton.value = "⏸";
 
     if (runningAnimation) {
         window.clearInterval(runningAnimation);
-        playButton.value = ">";
+        playButton.value = "▶";
         runningAnimation = null;
     } else {
 
@@ -109,12 +109,12 @@ playButton.onclick = function () {
 
             if (value > slider.max) {
                 window.clearInterval(runningAnimation);
-                playButton.value = ">";
+                playButton.value = "▶";
                 runningAnimation = null;
             }
         }, 250)
-    };
-}
+    }
+};
 
 let slider = document.querySelector("#slider");
 slider.min = 4;
