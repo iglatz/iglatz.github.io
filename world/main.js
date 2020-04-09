@@ -1,7 +1,7 @@
 let startLayer = L.tileLayer.provider("OpenTopoMap");
 
 let map = L.map("map", {
-    center: [0, 0],
+    center: [30, 0],
     zoom: 2,
     layers: [
         startLayer
@@ -25,9 +25,23 @@ let drawCircles = function () {
     let header = CONFIRMED[0];
     let index = header.length - 1;
     let topic = "bestätigte Fälle";
+    let options = document.querySelector("#pulldown").options;
+    let value = options[options.selectedIndex].value;
+    let label = options[options.selectedIndex].label;
+
+if (value == "confirmed") {
+        data = CONFIRMED;
+} else if (value == "deaths") {
+        data = DEATHS;
+}else {
+            data = RECOVERED;
+    }
 
     // Datum & Thema anzeigen
-    document.querySelector("#datum").innerHTML = am ('{$header[index]} - {$topic}');
+    document.querySelector("#datum").innerHTML = `am ${header[index]} - ${label}`;
+
+    circleGroup.clearLayers();
+
     // console.log(CONFIRMED);
     for (let i = 1; i < data.length; i++) {
         let row = data[i];
@@ -51,11 +65,9 @@ let drawCircles = function () {
     }
 };
 
-document.querySelector("#pulldown").onchange = function (){
-    console.log("geändert");
+document.querySelector("#pulldown").onchange = function () {
+    drawCircles();
 
 };
 
-//drawCircles(RECOVERED);
-drawCircles(CONFIRMED);
-//drawCircles(DEATHS);
+drawCircles();
