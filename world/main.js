@@ -24,7 +24,7 @@ let drawCircles = function () {
     let data = CONFIRMED;
     let header = CONFIRMED[0];
     let index = document.querySelector("#slider").value;
-    let topic = "bestätigte Fälle";
+    //let topic = "bestätigte Fälle";
     let options = document.querySelector("#pulldown").options;
     let value = options[options.selectedIndex].value;
     let label = options[options.selectedIndex].label;
@@ -32,13 +32,13 @@ let drawCircles = function () {
 
     if (value == "confirmed") {
         data = CONFIRMED;
-        color = 'blue'
+        color = '#0074D9'
     } else if (value == "deaths") {
         data = DEATHS;
-        color = 'purple'
+        color = '#B10DC9'
     } else {
         data = RECOVERED;
-        color = 'green'
+        color = '#2ECC40'
     }
 
     // Datum & Thema anzeigen
@@ -63,8 +63,8 @@ let drawCircles = function () {
             continue;
         }
 
-        let mrk = L.marker([lat, lng]).addTo(map);
-        mrk.bindPopup(`${row[0]} ${row[1]}: ${val}`);
+        //let mrk = L.marker([lat, lng]).addTo(map);
+        //mrk.bindPopup(`${row[0]} ${row[1]}: ${val}`);
 
         // A = r²*PI
         // r² = A/PI
@@ -82,6 +82,18 @@ let drawCircles = function () {
 document.querySelector("#pulldown").onchange = function () {
     drawCircles();
 };
+
+let slider = document.querySelector("#slider");
+slider.min = 4;
+slider.max = CONFIRMED[0].length - 1;
+slider.step = 1
+slider.value = slider.max;
+
+slider.onchange = function () {
+    drawCircles();
+}
+drawCircles();
+
 let playButton = document.querySelector("#play");
 let runningAnimation = null;
 
@@ -115,14 +127,3 @@ playButton.onclick = function () {
         }, 250)
     }
 };
-
-let slider = document.querySelector("#slider");
-slider.min = 4;
-slider.max = CONFIRMED[0].length - 1;
-slider.step = 1
-slider.value = slider.max;
-
-slider.onchange = function () {
-    drawCircles();
-}
-drawCircles();
