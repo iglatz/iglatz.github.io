@@ -25,7 +25,8 @@ L.control.layers({
 let walk = L.geoJson(SPAZIERGANG, {
     pointToLayer: function(point, latlng) {
         let marker = L.marker(latlng);
-        marker.bindPopup("popup");
+        console.log("Point", point);
+        marker.bindPopup(`<h3>${point.properties.NAME}</h3>`);
         return marker;
     }
 }).addTo(map);
