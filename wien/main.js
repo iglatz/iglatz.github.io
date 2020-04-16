@@ -21,3 +21,5 @@ L.control.layers({
         L.tileLayer.provider("BasemapAT.overlay")
     ])
 }).addTo(map);
+
+let walk = L.geoJson(SPAZIERGANG).addTo(map);
