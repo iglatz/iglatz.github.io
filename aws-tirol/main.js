@@ -30,7 +30,13 @@ let awsUrl = "https://aws.openweb.cc/stations";
 
 let aws = L.geoJson.ajax(awsUrl, {
     pointToLayer: function(point, latlng){
-        console.log("point: ", point);
-        return L.marker(latlng);
+        //console.log("point: ", point);
+        let marker = L.marker (latlng).bindPopup(`<h3>${point.properties.name}</h3>
+        <ul>
+        <li>Datum: ${point.properties.date}<li>
+        <li>Lufttemperatur:${point.properties.LT} °C </li>
+        </ul>
+        `);
+        return marker;
     }
 }).addTo(awsLayer);
