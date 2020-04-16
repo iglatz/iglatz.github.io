@@ -55,3 +55,10 @@ L.geoJson.ajax(wandern, {
         return {color: "green", weight: 5};
     }
 }).addTo(map);
+
+let heritage = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WELTKULTERBEOGD&srsName=EPSG:4326&outputFormat=json"
+L.geoJson.ajax(heritage,{
+    style: function(){
+        return{color: "salmon", fillOpacity: 0.3}
+    }
+}).addTo(map);
