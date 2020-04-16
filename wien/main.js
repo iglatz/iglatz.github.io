@@ -36,7 +36,7 @@ let walk = L.geoJson.ajax(walkUrl, {
         let marker = L.marker(latlng, {
             icon: icon
         });
-        console.log("Point", point);
+        //console.log("Point", point);
         marker.bindPopup(`<h3>${point.properties.NAME}</h3>
         <p><a target="links" href="${point.properties.WEITERE_INF}">Link<a/></p>
         `);
@@ -60,5 +60,11 @@ let heritage = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature
 L.geoJson.ajax(heritage,{
     style: function(){
         return{color: "salmon", fillOpacity: 0.3}
+    },
+    onEachFeature: function(feature, layer){
+        console.log("Feature:", feature);
+        layer.bindPopup(`<h3>${feature.properties.NAME}</h3>
+        <p>${feature.properties.INFO}</p>
+        `)
     }
 }).addTo(map);
