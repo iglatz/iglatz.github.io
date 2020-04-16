@@ -27,7 +27,7 @@ let walk = L.geoJson(SPAZIERGANG, {
         let marker = L.marker(latlng);
         console.log("Point", point);
         marker.bindPopup(`<h3>${point.properties.NAME}</h3>
-        <p><a href="${point.properties.WEITERE_INF}">Link<a/></p>
+        <p><a target="links" href="${point.properties.WEITERE_INF}">Link<a/></p>
         `);
         return marker;
     }
