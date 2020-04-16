@@ -8,9 +8,9 @@ let map = L.map("map", {
     ]
 });
 
-let sightGroup = L.featureGroup().addTo(map);
-let walkGroup = L.featureGroup().addTo(map);
-let heritageGroup = L.featureGroup().addTo(map);
+let sightGroup = L.markerClusterGroup().addTo(map);
+let walkGroup = L.markerClusterGroup().addTo(map);
+let heritageGroup = L.markerClusterGroup().addTo(map);
 
 L.control.layers({
     "BasemapAT.grau": startLayer,
@@ -25,7 +25,9 @@ L.control.layers({
         L.tileLayer.provider("BasemapAT.overlay")
     ])
 }, {
-    "Stadtspaziergang (Punkte)": sightGroup
+    "Stadtspaziergang (Punkte)": sightGroup,
+    "Wanderungen": walkGroup,
+    "Weltkulturerbe": heritageGroup
 }).addTo(map);
 
 let sightUrl = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SPAZIERPUNKTOGD%20&srsName=EPSG:4326&outputFormat=json" 
