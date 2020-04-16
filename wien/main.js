@@ -9,6 +9,8 @@ let map = L.map("map", {
 });
 
 let sightGroup = L.featureGroup().addTo(map);
+let walkGroup = L.featureGroup().addTo(map);
+let heritageGroup = L.featureGroup().addTo(map);
 
 L.control.layers({
     "BasemapAT.grau": startLayer,
@@ -56,7 +58,7 @@ L.geoJson.ajax(wandern, {
     style: function(){
         return {color: "green", weight: 5};
     }
-}).addTo(map);
+}).addTo(walkGroup);
 
 let heritage = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WELTKULTERBEOGD&srsName=EPSG:4326&outputFormat=json"
 L.geoJson.ajax(heritage,{
@@ -69,4 +71,4 @@ L.geoJson.ajax(heritage,{
         <p>${feature.properties.INFO}</p>
         `)
     }
-}).addTo(map);
+}).addTo(heritageGroup);
