@@ -43,3 +43,7 @@ let walk = L.geoJson.ajax(walkUrl, {
         return marker;
     }
 }).addTo(walkGroup);
+
+walk.on("data:loaded", function(){
+   map.fitBounds(walkGroup.getBounds()); 
+});
