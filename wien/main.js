@@ -22,4 +22,10 @@ L.control.layers({
     ])
 }).addTo(map);
 
-let walk = L.geoJson(SPAZIERGANG).addTo(map);
+let walk = L.geoJson(SPAZIERGANG, {
+    pointToLayer: function(point, latlng) {
+        let marker = L.marker(latlng);
+        marker.bindPopup("popup");
+        return marker;
+    }
+}).addTo(map);
