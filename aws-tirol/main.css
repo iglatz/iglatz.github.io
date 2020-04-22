@@ -41,3 +41,8 @@ main h2 {
     height: 70vh;
     border: 1px solid gray;
 }
+
+.bold{
+    font-weight: bold;
+    display: inline;
+}
