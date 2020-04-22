@@ -37,12 +37,22 @@ let sights = L.geoJson.ajax(sightUrl, {
         let icon = L.icon({
             iconUrl: 'icons/sight.svg',
             iconSize: [32, 32]
-        })
+        });
         let marker = L.marker(latlng, {
             icon: icon
         });
+
+        let info;
+        if (point.properties.BEMERKUNG == null) {
+            info = "keine weitern Infos zur Verfügung";
+        } else {
+            info = point.properties.BEMERKUNG;
+        }
+
         //console.log("Point", point);
         marker.bindPopup(`<h3>${point.properties.NAME}</h3>
+        <p>${point.properties.ADRESSE}</p>
+        <p>${info}</p>
         <p><a target="links" href="${point.properties.WEITERE_INF}">Link<a/></p>
         `);
         return marker;
@@ -57,24 +67,45 @@ sights.on("data:loaded", function () {
 let wandern = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WANDERWEGEOGD&srsName=EPSG:4326&outputFormat=json"
 
 L.geoJson.ajax(wandern, {
-    style: function () {
-        return {
-            color: "green",
-            weight: 5
-        };
+    style: function (feature) {
+        if (feature.properties.TYP == 1) {
+            return {
+                color: "black",
+                dashArray: "20,20"
+            };
+        } else {
+            return {
+                color: "black",
+                dashArray: "1,10"
+            };
+        }
+    },
+    onEachFeature: function (feature, layer){
+        console.log("Wanderweg Feature: ", feature);
+        layer.bindPopup(`${feature.properties.BEZ_TEXT}`)
     }
+
 }).addTo(walkGroup);
 
 let heritage = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WELTKULTERBEOGD&srsName=EPSG:4326&outputFormat=json"
 L.geoJson.ajax(heritage, {
-    style: function () {
-        return {
-            color: "salmon",
-            fillOpacity: 0.3
+    style: function (feature) {
+        if (feature.properties.TYP == 1) {
+            return {
+                color: "red",
+                fillOpacity: 0.3
+            };
+        } else {
+            return {
+                color: "yellow",
+                fillOpacity: 0.3
+            };
+
         }
     },
+
     onEachFeature: function (feature, layer) {
-        console.log("Feature:", feature);
+        //console.log("Feature:", feature);
         layer.bindPopup(`<h3>${feature.properties.NAME}</h3>
         <p>${feature.properties.INFO}</p>
         `)
