@@ -29,7 +29,7 @@ L.control.layers({
 let awsUrl = "https://aws.openweb.cc/stations";
 
 let aws = L.geoJson.ajax(awsUrl, {
-    filter: function(feature){
+    filter: function (feature) {
         //console.log("Feature in filter: ", feature);
         //return feature.geometry.coordinates[2] > 3000;
         return feature.properties.LT != null;
@@ -45,39 +45,39 @@ let aws = L.geoJson.ajax(awsUrl, {
     //     // funktionier gleich aber kürzer geschrieben
     //     // return feature.properties.LT < 5;
     // },
-    pointToLayer: function(point, latlng){
+    pointToLayer: function (point, latlng) {
         console.log("point Wetterkarte: ", point);
         let schneeHoehe;
         let rFeuchte;
         let wind;
         let temp;
         // Lufttemperatur einbinden
-        if (point.properties.LT <= 0 || point.properties.LT == null){
+        if (point.properties.LT <= 0 || point.properties.LT == null) {
             temp = "Keine Angabe";
-        }else{
+        } else {
             temp = point.properties.LT + "°C";
         }
         // Windgeschwindigkeit einbinden
-        if (point.properties.WG <= 0 || point.properties.WG == null){
+        if (point.properties.WG <= 0 || point.properties.WG == null) {
             wind = "Keine Angabe";
-        }else{
+        } else {
             wind = point.properties.WG + "m/s";
         }
         // Relative Feuche einbinden
-        if (point.properties.RH <= 0 || point.properties.RH == null){
+        if (point.properties.RH <= 0 || point.properties.RH == null) {
             rFeuchte = "Keine Angabe";
-        }else{
+        } else {
             rFeuchte = point.properties.RH + "%";
         }
         //Schneehöhe einbinden
-        if (point.properties.HS <= 0 || point.properties.HS == null){
+        if (point.properties.HS <= 0 || point.properties.HS == null) {
             schneeHoehe = "Keine Angabe";
-        }else{
+        } else {
             schneeHoehe = point.properties.HS + "cm";
         }
 
 
-        let marker = L.marker (latlng).bindPopup(`<h3>${point.properties.name}</h3>
+        let marker = L.marker(latlng).bindPopup(`<h3>${point.properties.name}</h3>
         <ul>
         <li><p class=bold>Seehöhe:</p> <br> ${point.geometry.coordinates[2]} hm</li>
         <li><p class=bold>Position:</p><br> Lat: ${point.geometry.coordinates[1]} <br> Lng: ${point.geometry.coordinates[0]}</li>
@@ -89,7 +89,7 @@ let aws = L.geoJson.ajax(awsUrl, {
         </ul>
         <a target="link" href= "https://lawine.tirol.gv.at/data/grafiken/1100/standard/tag/${point.properties.plot}.png"> Hier gehts zur Grafik der Wetterstation </a>
         `);
-        
+
         return marker;
     }
 }).addTo(awsLayer);
