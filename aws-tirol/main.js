@@ -96,6 +96,24 @@ let aws = L.geoJson.ajax(awsUrl, {
     }
 }).addTo(overlay.stations);
 
+//getColor(34,COLORS.temperature)
+let getColor = function(val, ramp){
+    //console.log(val, ramp)
+    let col = "red";
+
+    for (let i = 0; i < ramp.length; i++) {
+        const pair = ramp[i];
+        if(val >= pair [0]) {
+            break;
+        } else{
+            col = pair[1];
+        }
+        //console.log(val, pair);
+    }
+    return col;
+};
+
+
 let drawTempreature = function(jsonData) {
     console.log("aus der Funktion", jsonData);
     L.geoJson(jsonData, {
@@ -103,10 +121,12 @@ let drawTempreature = function(jsonData) {
             return feature.properties.LT;
         },
         pointToLayer: function(feature, latlng) {
+            let color = getColor(feature.properties.LT,COLORS.temperature);
+            //console.log(color)
             return L.marker(latlng, {
                 title: `${feature.properties.name} (${feature.geometry.coordinates[2]}m)`,
                 icon: L.divIcon({
-                    html: `<div class="label-temperature">${feature.properties.LT.toFixed(1)}</div>`,
+                    html: `<div class="label-temperature" style="background-color:${color}">${feature.properties.LT.toFixed(1)}</div>`,
                     className: "ignore-me" // dirty hack
                 })
             })
@@ -120,27 +140,29 @@ let drawTempreature = function(jsonData) {
 // 4 funktion in draw wind in data:loaded aufrufen
 
 let drawWind = function(jsonData){
-    console.log("aus der Funktion", jsonData);
+    //console.log("aus der Funktion", jsonData);
     L.geoJson(jsonData, {
         filter: function(feature){
             return feature.properties.WG;
         },
         pointToLayer: function(feature, latlng) {
             let kmh = Math.round(feature.properties.WG / 1000 * 3600);
+            let color = getColor(kmh,COLORS.wind);
             return L.marker(latlng, {
-                title: `${feature.properties.name} (${feature.geometry.coordinates[2]}m)`,
+                title: `${feature.properties.name} (${feature.geometry.coordinates[2]}m) - {kmh} km/h` ,
                 icon: L.divIcon({
-                    html: `<div class="label-wind">${kmh}</div>`,
+                    html: `<div class="label-wind" <i class="fas fa-arrow-circle-up">style="color:${color}</i></div>`,
                     className: "ignore-me" // dirty hack
                 })
             })
         }
     }).addTo(overlay.temperature);
 };
+
 aws.on("data:loaded", function(){
     //console.log(aws.toGeoJSON());
-    drawTempreature(aws.toGeoJSON);
-    drawWind(aws.toGeoJSON);
+    drawTempreature(aws.toGeoJSON());
+    drawWind(aws.toGeoJSON());
     map.fitBounds(overlay.stations.getBounds());
     
     overlay.wind.addTo(map);
