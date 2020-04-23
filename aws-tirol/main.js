@@ -1,8 +1,6 @@
 let startLayer = L.tileLayer.provider("BasemapAT.grau");
 
 let map = L.map("map", {
-    center: [47.3, 11.5],
-    zoom: 8,
     layers: [
         startLayer
     ]
@@ -34,7 +32,7 @@ let aws = L.geoJson.ajax(awsUrl, {
     filter: function (feature) {
         //console.log("Feature in filter: ", feature);
         //return feature.geometry.coordinates[2] > 3000;
-        return feature.properties.LT != null;
+        return feature.properties.LT;
     },
 
     // filter: function(feature) {
@@ -95,3 +93,11 @@ let aws = L.geoJson.ajax(awsUrl, {
         return marker;
     }
 }).addTo(overlay.stations);
+
+aws.on("data:loaded", function(){
+    console.log(aws.toGeoJSON());
+
+    map.fitBounds(overlay.stations.getBounds());
+
+    overlay.stations.addTo(map);
+});
