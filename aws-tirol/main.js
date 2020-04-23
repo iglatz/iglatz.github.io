@@ -114,6 +114,14 @@ let drawTempreature = function(jsonData) {
     }).addTo(overlay.temperature);
 }
 
+// neues overlay definieren, zu L.control.layers hinzufügen und default anzeigen
+// Funktion drawWind als 1:1 Kopie von drawTemperature mit Anpassungen (in km/h)
+// einen neune Stil .label-wind im CSS von main.css
+// funktion in draw wind in data:loaded aufrufen
+
+let drawWind = function(jsonData){
+
+};
 aws.on("data:loaded", function(){
     //console.log(aws.toGeoJSON());
     drawTempreature(aws.toGeoJSON);
