@@ -8,7 +8,8 @@ let map = L.map("map", {
 
 let overlay = {
     stations: L.featureGroup(),
-    temperature: L.featureGroup()
+    temperature: L.featureGroup(),
+    wind: L.featureGroup()
 }
 
 L.control.layers({
@@ -25,7 +26,8 @@ L.control.layers({
     ])
 }, {
     "Wetterstationen Tirol": overlay.stations,
-    "Temperatur (°C)": overlay.temperature
+    "Temperatur (°C)": overlay.temperature,
+    "Windgeschwindigkeit (km/h)": overlay.wind
 }).addTo(map);
 
 let awsUrl = "https://aws.openweb.cc/stations";
@@ -110,20 +112,36 @@ let drawTempreature = function(jsonData) {
             })
         }
     }).addTo(overlay.temperature);
-}
+};
 
-// neues overlay definieren, zu L.control.layers hinzufügen und default anzeigen
-// Funktion drawWind als 1:1 Kopie von drawTemperature mit Anpassungen (in km/h)
-// einen neune Stil .label-wind im CSS von main.css
-// funktion in draw wind in data:loaded aufrufen
+// 1 neues overlay definieren, zu L.control.layers hinzufügen und default anzeigen
+// 2 Funktion drawWind als 1:1 Kopie von drawTemperature mit Anpassungen (in km/h)
+// 3 einen neune Stil .label-wind im CSS von main.css
+// 4 funktion in draw wind in data:loaded aufrufen
 
 let drawWind = function(jsonData){
-
+    console.log("aus der Funktion", jsonData);
+    L.geoJson(jsonData, {
+        filter: function(feature){
+            return feature.properties.WG;
+        },
+        pointToLayer: function(feature, latlng) {
+            let kmh = Math.round(feature.properties.WG / 1000 * 3600);
+            return L.marker(latlng, {
+                title: `${feature.properties.name} (${feature.geometry.coordinates[2]}m)`,
+                icon: L.divIcon({
+                    html: `<div class="label-wind">${kmh}</div>`,
+                    className: "ignore-me" // dirty hack
+                })
+            })
+        }
+    }).addTo(overlay.temperature);
 };
 aws.on("data:loaded", function(){
     //console.log(aws.toGeoJSON());
     drawTempreature(aws.toGeoJSON);
+    drawWind(aws.toGeoJSON);
     map.fitBounds(overlay.stations.getBounds());
-
-    overlay.temperature.addTo(map);
+    
+    overlay.wind.addTo(map);
 });
