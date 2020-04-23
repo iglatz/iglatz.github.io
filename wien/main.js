@@ -71,11 +71,13 @@ L.geoJson.ajax(wandern, {
         if (feature.properties.TYP == 1) {
             return {
                 color: "black",
+                weight: 2,
                 dashArray: "20,20"
             };
         } else {
             return {
                 color: "black",
+                weight: 2,
                 dashArray: "1,10"
             };
         }
