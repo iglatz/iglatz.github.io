@@ -48,7 +48,7 @@ let aws = L.geoJson.ajax(awsUrl, {
     //     // return feature.properties.LT < 5;
     // },
     pointToLayer: function (point, latlng) {
-        console.log("point Wetterkarte: ", point);
+        //console.log("point Wetterkarte: ", point);
         let schneeHoehe;
         let rFeuchte;
         let wind;
@@ -78,8 +78,7 @@ let aws = L.geoJson.ajax(awsUrl, {
             schneeHoehe = point.properties.HS + "cm";
         }
 
-
-        let marker = L.marker(latlng).bindPopup(`<h3>${point.properties.name}</h3>
+        let marker = L.marker(latlng).bindPopup(`<h3>${point.properties.name} ${point.geometry.coordinates[2]} m</h3>
         <ul>
         <li><p class=bold>Seehöhe:</p> <br> ${point.geometry.coordinates[2]} hm</li>
         <li><p class=bold>Position:</p><br> Lat: ${point.geometry.coordinates[1]} <br> Lng: ${point.geometry.coordinates[0]}</li>
@@ -91,7 +90,6 @@ let aws = L.geoJson.ajax(awsUrl, {
         </ul>
         <a target="link" href= "https://lawine.tirol.gv.at/data/grafiken/1100/standard/tag/${point.properties.plot}.png"> Hier gehts zur Grafik der Wetterstation </a>
         `);
-
         return marker;
     }
 }).addTo(overlay.stations);
@@ -100,7 +98,7 @@ let drawTempreature = function(jsonData) {
     console.log("aus der Funktion", jsonData);
     L.geoJson(jsonData, {
         filter: function(feature){
-            return feature.properties.LT
+            return feature.properties.LT;
         },
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
